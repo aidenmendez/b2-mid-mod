@@ -25,7 +25,9 @@ RSpec.describe "As a user" do
       expect(@pit.name).to appear_before(@andrews.name)
     end
     it "And I see the average age of all of the movie's actors" do
-
+      visit "/movies/#{@shrek.id}"
+      save_and_open_page
+      expect(page).to have_content("Average Age: 60.0 years old")
     end
   end
 end
