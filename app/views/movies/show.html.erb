@@ -8,3 +8,17 @@
 <% end %>
 
 <p>Average Age: <%= @average_age %> years old</p>
+
+<section id="actor-search-section">
+<h2>Search Actors</h2>
+<%= form_tag "/movies/#{@movie.id}", method: :get do %>
+  <%= label_tag :search_actors, "Name: " %>
+  <%= text_field_tag :search_actors, params[:search_actors] %>
+  <%= submit_tag "Submit" %>
+<% end %>
+
+<% if params[:search_actors] %>
+  <p>Results:</p>
+  <%= Actor.name_search(params[:search_actors]).name %>
+<% end %>
+</section>
