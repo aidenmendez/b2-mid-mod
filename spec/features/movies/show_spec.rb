@@ -24,10 +24,24 @@ RSpec.describe "As a user" do
       expect(@hathaway.name).to appear_before(@pit.name)
       expect(@pit.name).to appear_before(@andrews.name)
     end
-    it "And I see the average age of all of the movie's actors" do
+    it "and I see the average age of all of the movie's actors" do
       visit "/movies/#{@shrek.id}"
-      save_and_open_page
+
       expect(page).to have_content("Average Age: 60.0 years old")
+    end
+    describe "I see a form for an actors name" do
+      it "and I fill in the form and click submit, I'm redirected to the movie show page and see the actor's name listed" do
+        visit "/movies/#{@shrek.id}"
+
+        fill_in("Name", with: "Julie Andrews")
+        click_on("Submit")
+
+        expect(current_path).to eq("/movies/#{@shrek.id}")
+        within("#actor-search-section") do
+          expect(page).to have_content("Julie Andrews")
+        end
+      end
+
     end
   end
 end

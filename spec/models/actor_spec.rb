@@ -43,4 +43,23 @@ RSpec.describe Actor, type: :model do
       expect(average).to eq(60.0)
     end
   end
+
+  describe "name_search" do
+    before(:each) do
+      @studio1 = Studio.create(name:"Universal Studios", location:"Orlando, FL")
+      @shrek = Movie.create(title: "Shrek", creation_year: 2001, genre: "Comedy", studio_id: @studio1.id)
+      @hathaway = Actor.create(name: "Anne Hathaway", age: 38)
+      @pit = Actor.create(name: "Brad Pit", age: 57)
+      @andrews = Actor.create(name: "Julie Andrews", age: 85)
+      MovieActor.create(actor: @hathaway, movie: @shrek)
+      MovieActor.create(actor: @pit, movie: @shrek)
+      MovieActor.create(actor: @andrews, movie: @shrek)
+    end
+
+    it "returns matching result" do
+      results = Actor.name_search("Brad Pit")
+
+      expect(results).to eq(Actor.find(@pit.id))
+    end
+  end
 end
