@@ -17,11 +17,11 @@ RSpec.describe "As a user" do
     it "and all movies under its respective studio" do
       visit "/studios"
       within("#studio-section-#{@studio1.id}") do
-        expect(page).to have_content(@world.name)
-        expect(page).to have_content(@shrek.name)        
+        expect(page).to have_content(@world.title)
+        expect(page).to have_content(@shrek.title)        
       end
       within("#studio-section-#{@studio2.id}") do
-        expect(page).to have_content(@interstellar.name)
+        expect(page).to have_content(@interstellar.title)
       end
     end
   end
