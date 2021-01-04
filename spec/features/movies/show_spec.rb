@@ -19,7 +19,10 @@ RSpec.describe "As a user" do
       expect(page).to have_content(@shrek.genre)
     end
     it "and a list of all its actors from youngest to oldest" do
-      
+      visit "/movies/#{@shrek.id}"
+
+      expect(@hathaway.name).to appear_before(@pit.name)
+      expect(@pit.name).to appear_before(@andrews.name)
     end
     it "And I see the average age of all of the movie's actors" do
 
